@@ -83,8 +83,8 @@ func (logger *Logger) SetLevel(level Level) {
 	logger.level = level
 }
 
-func (logger *Logger) SetCallDepth(depth int) {
-	logger.callDepth = depth
+func (logger *Logger) SetCallDepth(addToBaseDepth int) {
+	logger.callDepth = addToBaseDepth + minCallDepth
 }
 
 func (logger *Logger) Flush() error {

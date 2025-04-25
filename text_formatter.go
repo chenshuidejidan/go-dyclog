@@ -39,6 +39,7 @@ type TextFormatter struct {
 	enableColors    bool
 	enableQuote     bool
 	enableTimestamp bool
+	enableIP        bool
 	timestampFormat string
 }
 
@@ -47,6 +48,7 @@ func NewDefaultTextFormatter() *TextFormatter {
 		enableColors:    false,
 		enableQuote:     false,
 		enableTimestamp: false,
+		enableIP:        false,
 		timestampFormat: defaultTimestampFormat,
 	}
 }
@@ -72,6 +74,15 @@ func (f *TextFormatter) SetTimestamp(enable bool) {
 	f.enableTimestamp = enable
 }
 
+func (f *TextFormatter) SetTimeFormatter(formatter string) {
+	f.timestampFormat = formatter
+	f.enableTimestamp = true
+}
+
+func (f *TextFormatter) SetEnableIP(enable bool) {
+	f.enableIP = enable
+}
+
 func (f *TextFormatter) isColored() bool {
 	return f.enableColors
 }
@@ -84,7 +95,9 @@ func (f *TextFormatter) Format(l log) ([]byte, error) {
 	fixedKeys = append(fixedKeys, fieldKeyLevel)
 	fixedKeys = append(fixedKeys, fieldKeyLogID)
 	fixedKeys = append(fixedKeys, fieldKeyLocation)
-	fixedKeys = append(fixedKeys, fieldKeyIP)
+	if f.enableIP {
+		fixedKeys = append(fixedKeys, fieldKeyIP)
+	}
 	fixedKeys = append(fixedKeys, fieldKeyMessage)
 
 	b := formatPool.Get().(bytes.Buffer)

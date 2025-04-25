@@ -19,6 +19,7 @@ package dyclog
 import (
 	"net"
 	"net/http"
+	"path/filepath"
 	"runtime"
 	"strings"
 )
@@ -27,11 +28,13 @@ func GetCallerLocation(caller *runtime.Frame) (string, int) {
 	file := caller.File
 	line := caller.Line
 
-	lastSlash := strings.LastIndex(file, "/")
-	if lastSlash == -1 || lastSlash == len(file)-1 {
+	baseName := filepath.Base(file)
+	dir := filepath.Dir(file)
+	lastSlash := strings.LastIndex(dir, "/")
+	if lastSlash == -1 || lastSlash == len(file)-1 || baseName == "" {
 		return "", line
 	}
-	return file[lastSlash+1:], line
+	return file[lastSlash+1:] + "/" + baseName, line
 }
 
 func GetRemoteIP(req *http.Request) string {

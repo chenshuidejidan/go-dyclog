@@ -10,7 +10,7 @@ package main
 import (
 	"context"
 	
-	"github.com/bytedance/go-dyclog"
+	"github.com/chenshuidejidan/go-dyclog"
 )
 
 func main() {
@@ -77,7 +77,7 @@ func handler(ctx context.Context, r *events.HTTPRequest) (*events.EventResponse,
 *****The following two methods use ConsoleWriter by default to output logs through stdout*****
 ```go
 // the first method
-import "github.com/bytedance/go-dyclog"
+import "github.com/chenshuidejidan/go-dyclog"
 
 func func main() {
     dyclog.Debug("test go-dyclog!")
@@ -88,7 +88,7 @@ func func main() {
 
 ```go
 // the second method
-import "github.com/bytedance/go-dyclog"
+import "github.com/chenshuidejidan/go-dyclog"
 
 var Logger *dyclog.Logger
 
@@ -105,7 +105,7 @@ func func main() {
 *****The following cases use FileWriter to write log files. Douyin Cloud does not support file log collection for the time being, so stay tuned*****
 ```go
 
-import "github.com/bytedance/go-dyclog"
+import "github.com/chenshuidejidan/go-dyclog"
 
 var Logger *dyclog.Logger
 
