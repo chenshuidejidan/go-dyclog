@@ -28,13 +28,12 @@ func GetCallerLocation(caller *runtime.Frame) (string, int) {
 	file := caller.File
 	line := caller.Line
 
-	baseName := filepath.Base(file)
 	dir := filepath.Dir(file)
 	lastSlash := strings.LastIndex(dir, "/")
-	if lastSlash == -1 || lastSlash == len(file)-1 || baseName == "" {
-		return "", line
+	if lastSlash == -1 || lastSlash == len(file)-1 {
+		return filepath.Base(file), line
 	}
-	return file[lastSlash+1:] + "/" + baseName, line
+	return file[lastSlash+1:], line
 }
 
 func GetRemoteIP(req *http.Request) string {
