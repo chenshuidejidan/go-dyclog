@@ -130,6 +130,7 @@ func (f *TextFormatter) encodeColorText(b *bytes.Buffer, entry log, fixedKeys []
 
 	fmt.Fprintf(b, "\u001b[%dm", levelColor)
 	f.encodeText(b, entry, fixedKeys)
+	b.WriteString("\u001b[0m") // <<< 添加此行，每条日志都reset颜色
 }
 
 func (f *TextFormatter) encodeText(b *bytes.Buffer, l log, fixedKeys []string) {
